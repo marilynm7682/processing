@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+    //variables
+        var ballX;
+        var ballY;
+        var ballSpeedX = 5; //speed of ball 
+        var ballSpeedY = 5; //speed of ball 
+        var paddleHeight = 30; //height of the paddle
+
+        function setup() {
+            createCanvas(800,600); //size of canvas
+            noCursor();
+            ballX = width / 2; //width is divided by 2
+            ballY = height / 2; //height is divided by 2
+        }
+
+        function draw() {
+            //functions
+            background(128);
+            moveBall(); //for the ball to move
+            checkCollide(); // if statement
+            drawPaddle(); //for the paddle
+            drawBall(); // for the ball 
+            colorSplash();//for the ellipse and background to change
+        }
+
+        function moveBall() {
+            //ball equals speed
+            ballX = ballX + ballSpeedX;
+            ballY = ballY + ballSpeedY;
+
+            console.log("ballSpeedX: " + ballSpeedX + 
+                        ", ballSpeedY: " + ballSpeedY); //check the code if it's right
+        }
+
+        function checkCollide() {
+            if (ballX < 0 || ballX > width) {
+                ballSpeedX = ballSpeedX * -1; //if the ball is less than 0 or if it's greater then multiply speedX by 1
+            }
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1; //if the ball is less than ballY then multiply speedY by -1
+            }
+            if (ballY > height - paddleHeight) { //ball speed vertically
+                if (ballX > mouseX && ballX < mouseX + 200) { //ball speed horizontally
+                    ballSpeedY = ballSpeedY * -1;
+                }
+                else {
+                    text("GAME OVER!", width / 2, height / 2);//if paddle does not touch then game over
+                    noLoop();
+                }
+            }
+        }
+
+        function drawBall() {
+            noStroke(); //
+            ellipse(ballX, ballY, 20, 20); //ball
+        }
+
+        function drawPaddle() {
+            strokeWeight(4);//how thick it is
+            rect(mouseX, height - paddleHeight - 4, 200, paddleHeight); //paddle
+        }
+        function colorSplash() {
+            if (ballX >= height) //when ball is greater to or equal to height background changes color to black 
+                background(20);
+            fill(random(255), random(255), random(255)); //random colors for ball
+            ellipse(ballX, ballY, 20, 20); //the actual ball
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
