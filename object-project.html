@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>Object-Project</title>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/addons/p5.dom.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+  <script>
+    var greens = []; //a variable that calls an array that represents the rectangle
+    var rainbow = [40, 90, 60]; // another variable that calls the array that makes the circle change color
+    var index = 0 //the Array structure
+
+
+    function setup() {
+      createCanvas(500, 500); //the size of the canvas
+      greens.push(new Green()); // adds a new green which is a rectangle
+      greens.push(new Green()); //adds another green
+      greens.push(new Green());// adds a third green 
+      
+
+    }
+    
+
+    function draw() {
+      background(227, 43, 89); //the background color is originally pink
+
+      for (var i = 0; i < greens.length; i++) { //named a new variable "i" which is basically the initial value. Then the green array's length is greater than the initial value. 
+        greens[i].over(); // it's an object that makes the circle stop whenever the circle is in the rectangle
+        greens[i].display(); //it's an object that makes the rectangle appear. 
+      }
+      fill(rainbow[index]); //changes the color of the circle
+     
+      ellipse(mouseX, mouseY, 60, 70) // circle that follows/ moves wherever the mouse moves. 
+
+    }
+
+    
+    function Green() { // a class that represents the rectangle
+      this.x = width; //width of the canvas
+      this.y = height; //height of the canvas
+
+
+
+      this.over = function() { //function that makes the game over when ellipse inside rect
+        this.x = random(width); //allows rect go any width within 500  
+        this.y = random(height); //alows rect to go any hight within 500
+        if (mouseX > this.x && mouseX < this.x + 60 && mouseY > this.y && mouseY <
+          this.y + 40) { //says if ellipse is in rect then game is over 
+          text("Better luck next time", 80, 80); //text it says when game is over 
+          console.log("hit");
+          noLoop();
+        }
+
+      }
+
+      this.display = function() { //how the rect looks
+        stroke(255); //outlined in white 
+        fill(0, 80, 0) //green rect
+        rect(this.x, this.y, 60, 40); //size of the rect
+        frameRate(6); //how fast the rect moves 
+      }
+    }
+
+    function mousePressed() { //when the mouse is pressed...
+      index++; 
+      if (index == rainbow.length) {  //the ellipse turns different shades of gray 
+        index = 0; 
+      }
+      greens.push(new Green()); //makes a new rect when mouse is pressed
+
+    }
+
+    function keyPressed() { //when the key is pressed...
+      background(random(255), random(255), random(255)) //background changes color 
+    }
+  </script>
+</head>
+
+<body>
+
+<form><input TYPE="button" onClick="history.go(0)" value="Reset"></form
+
+</body>
+
+</html>
