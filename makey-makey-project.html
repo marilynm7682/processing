@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>Makey Makey Project</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+  <script>
+
+    var goal1; // name a variable that represents a rectangle
+    var circleX = 60; // the width of player 1's ball
+    var ballX = 560; // the width ofplayer 1's ball
+    var circleY = 30; // the height of player 2's ball
+    var ballY = 30; // the height of player 2's ball
+
+    function setup() {
+      createCanvas(600, 600); // the size of the canvas
+      goal1 = new Goal(); //a new rectangle
+    }
+
+    function draw() {
+      background(165, 222, 10); // the background color of the canvas
+      goal1.move(); 
+      goal1.display();
+      fill(245,220,34); // the color of both balls are yellow
+      ellipse(circleX, circleY, 60, 60); //player 1's ball
+      if (circleY + 40 > 600)
+        text("PLAYER 1 WINS!!!", 300, 300) //if ball 1 touches the edge of the canvas then player 1 wins
+      ellipse(ballX, ballY, 60, 60); //player 2's ball
+     if (ballY + 40 > 600)
+        text("PLAYER 2 WINS!!!", 300, 300) // if ball 2 touches the edge of the canvas then player 2 wins
+    }
+
+    function keyPressed() {
+      if (keyCode === LEFT_ARROW) { //if you press the left arrow 
+        circleY = circleY - 10; // the left circle moves up 
+      }
+
+      else if (keyCode === DOWN_ARROW) { //if you press the down arrow
+        circleY = circleY + 10; //the left cirlcle moves down 
+      }
+
+      if (keyCode === RIGHT_ARROW) { //if you click the right arrow 
+        ballY = ballY - 10; //the right ball moves up 
+        
+      }
+      else if (keyCode === UP_ARROW) {  // if you click the up arrow the ball goes down
+        ballY = ballY + 10;
+      }
+    }
+
+    function Goal() {
+      this.x = 200; // the width of the rectangle is 200
+      this.y = 500; //the heigh of the rectangle is 500
+      this.speed = 3; // the speed of the rectangle is 3
+      
+      
+      this.move = function() { //makes the rectangle move
+        this.x += this.speed;
+        if (this.x > width) {
+          this.x = 0;
+
+        }
+      }
+
+      this.display = function() {
+        fill(245,220,34); // the color of the rectangle is yellow 
+        rect(this.x, this.y, 260, 100); // the rectangle
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+<form><input TYPE="button" onClick="history.go(0)" value="Reset"></form>
+
+</body>
+
+</html>
